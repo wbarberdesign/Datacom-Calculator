@@ -1,0 +1,49 @@
+// DIRECTORY URLS
+$fontsDirectory: 'assets';
+$imagesDirectory: '../images/';
+// SPACING VARIABLES
+$spacingXSmall: 0.5rem;
+$spacingSmall: 1rem;
+$spacingMedium: 2rem;
+$spacingLarge: 4rem;
+$spacingXLarge: 5rem;
+// OFFSET VARIABLES
+$offsetSmall: 50px;
+$offsetMedium: 100px;
+$offsetLarge: 190px;
+$offsetXL: 550px;
+// CONTAINER VARIABLES
+$siteMargin: 6rem;
+// COLOUR VARIABLES
+$backgroundPrimary: #212121;
+$backgroundSecondary: #FFF;
+$themePurple: #a18dff;
+$themeLightPurple: #d2c8ff;
+$themeWhite: #FFF;
+$themeLightGrey: rgb(227, 227, 227);
+$themeGrey: #707070;
+$themeDarkGrey: #101010;
+$themeBlack: #000;
+// GRID VARIABLES
+$gridColumnCount: 12;
+$gridColumnLast: $gridColumnCount + 1;
+$gridRowGap: $spacingLarge;
+$gridColumnGap: 2rem;
+// RESPONSIVE VARIABLES
+$tabletBreakpoint: 1100px;
+$mobileBreakpoint: 750px;
+// TEXT VARIABLES
+$headingOne: 7rem;
+$headingTwo: 5rem;
+$headingThree: 4rem;
+$headingFour: 2.2rem;
+$headingFive: 2.2rem;
+$paragraph: 1.6rem;
+// FONT VARIABLES
+$fontPrimary: 'HaasGrotDisp-55Roman'; // Filename and font-family name
+$fontSecondary: '';
+$fontThird: '';
+// BUTTONS
+$buttonBorder: 0px solid transparent;
+// OTHER
+$borderRadius: 50px;

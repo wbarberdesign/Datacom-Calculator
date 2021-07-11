@@ -1,0 +1,53 @@
+html {
+    font-family: $fontPrimary;
+    color: $themeBlack;
+}
+
+body {
+    font-size: 1.6rem;
+}
+
+h1 {
+    font-size: 8rem;
+    line-height: 8.6rem;
+    letter-spacing: -3.6px;
+    font-family: 'bold';
+    margin-bottom: 0.8em;
+}
+
+h2 {
+    font-size: 3rem;
+    line-height: 3.6rem;
+    font-family: 'semi-bold';
+}
+.x-large {
+    font-size: 27.5rem;
+    font-family: 'semi-bold';
+}
+.light-blue {
+    color: #76C4FF;
+}
+a {
+    text-decoration: none;
+    color: $themeBlack;
+}
+
+ul, 
+p {
+    margin-bottom: $spacingMedium;
+}
+
+b, strong {
+    font-weight: bold;
+}
+
+.text-block {
+    * {
+        margin-bottom: 20px;
+    }
+}
+
+button {
+    font-family: $fontPrimary;
+    font-size: 1.6rem;
+}

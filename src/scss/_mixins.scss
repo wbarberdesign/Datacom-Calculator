@@ -1,0 +1,90 @@
+// TRANSITION MIXINS
+@mixin transition($x...){
+    -webkit-transition: $x;
+    -moz-transition: $x;
+    -ms-transition: $x;
+    -o-transition: $x;
+    transition: $x;
+}
+
+// TRANSFORM MIXINS
+@mixin translateX($x...){
+    transform: translateX($x);
+    -moz-transform: translateX($x);
+    -webkit-transform: translateX($x);
+    -o-transform: translateX($x);
+}
+@mixin translateY($y...){
+    transform: translateY($y);
+    -moz-transform: translateY($y);
+    -webkit-transform: translateY($y);
+    -o-transform: translateY($y);
+}
+@mixin scale($x, $y){
+    transform: scale($x, $y);
+    -moz-transform: scale($x, $y);
+    -webkit-transform: scale($x, $y);
+    -o-transform: scale($x, $y);
+}
+@mixin transformOrigin($x...){
+    transform-origin: $x;
+    -moz-transform-origin: $x;
+    -o-transform-origin: $x;
+    -webkit-transform-origin: $x;
+}
+@mixin rotate($x...){
+    transform: rotate($x);
+    -moz-transform: rotate($x);
+    -webkit-transform: rotate($x);
+    -o-transform: rotate($x);
+}
+
+// FONT MIXINS
+@mixin fontFace($fontName, $fileType) {
+    @font-face {
+        font-family: $fontName;
+        src: url('#{$fontsDirectory}/#{$fontName}.#{$fileType}');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+    }
+}
+
+// RESPONSIVE MIXINS
+@mixin tabletOnly {
+    @media (max-width: $tabletBreakpoint) { @content; }
+}
+@mixin mobileOnly {
+    @media (max-width: $mobileBreakpoint) { @content; }
+}
+
+// LAYOUT MIXINS
+@mixin aspectRatio($width, $height) {
+    position: relative;
+    width: 100%;
+    &:before {
+        display: block;
+        content: "";
+        width: 100%;
+        padding-top: ($height / $width) * 100%;
+    }
+    > .content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        &.top {
+            top: 0;
+        }
+        &.bottom {
+            bottom: 0;
+        }
+    }
+}
+
+@mixin backgroundImage($backgroundSize, $backgroundPosition) {
+    background-size: $backgroundSize;
+    background-position: $backgroundPosition;
+    background-repeat: no-repeat;
+}
