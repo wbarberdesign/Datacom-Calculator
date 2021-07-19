@@ -23,9 +23,48 @@ h2 {
 .x-large {
     font-size: 27.5rem;
     font-family: 'semi-bold';
+    border-bottom: 1px solid #76C4FF;
+    padding-bottom: 50px;
+    span {
+        font-size: 3rem;
+    }
 }
+
+.v-large {
+    font-size: 12.4rem;
+    letter-spacing:-4.96px;
+}
+
+.large {
+    font-size: 7.2rem;
+}
+.medium {
+    font-size: 5rem;
+}
+
+.large-body {
+    font-size: 2rem;
+    line-height: 2.6rem;
+}
+
+.blue {
+    color: #0054FF;
+}
+.dark-blue {
+    color: #002470;
+}
+.semi-bold {
+    font-family: 'semi-bold';
+}
+.bold {
+    font-family: 'bold';
+}
+
 .light-blue {
     color: #76C4FF;
+}
+.green {
+    color: #1DBA00;
 }
 a {
     text-decoration: none;
@@ -39,6 +78,10 @@ p {
 
 b, strong {
     font-weight: bold;
+}
+
+.semi-bold {
+    font-weight: 600;
 }
 
 .text-block {
