@@ -10,13 +10,13 @@ const RadioGroup = ({ mainLabel, radioOne, radioTwo, data }) => {
             {radioOne ?
                 <label>
                     <input name={mainLabel} type="radio" value={radioOne} onClick={e => updateData(e.target.value)} />
-                    {radioOne}
+                    {radioOne === 'Single' ? 'Single site' : 'New Zealand'}
                 </label>
             :null}
             {radioTwo ?
                 <label>
                     <input name={mainLabel} type="radio" value={radioTwo} onClick={e => updateData(e.target.value)} />
-                    {radioTwo}
+                    {radioTwo === 'Dual' ? 'Dual-site geo-replicated' : 'Australia' }
                 </label>
             :null}
         </div>

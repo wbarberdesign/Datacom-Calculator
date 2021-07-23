@@ -2,8 +2,12 @@ import Button from '../common/button'
 import NumberInput from '../common/NumberInput'
 
 const HomepageCalculator = ({ transitionIn, transitionOut, totalDataTB, startCalculator }) => {
+    const handleButtonClick = (e) => {
+        startCalculator(e)
+        window.location.hash = "calculator"
+    }
     return (
-        <section className={`homepage-data-input offset-top-large ${transitionIn} ${transitionOut}`}>
+        <section className={`homepage-data-input offset-top-large offset-bottom-large ${transitionIn} ${transitionOut}`} id="next">
             <div className="gc">
                 <div className="d-1-13">
                     <article className="text-block">
@@ -13,7 +17,7 @@ const HomepageCalculator = ({ transitionIn, transitionOut, totalDataTB, startCal
                         />
                     </article>
                     <div className="flex flex-to-right">
-                        <div onClick={startCalculator}>
+                        <div onClick={handleButtonClick}>
                             <Button 
                                 type="primary"
                                 text="Next"

@@ -15,7 +15,7 @@ h1 {
     margin-bottom: 0.8em;
 }
 
-h2 {
+h2, .h2 {
     font-size: 3rem;
     line-height: 3.6rem;
     font-family: 'semi-bold';
@@ -25,18 +25,28 @@ h2 {
     font-family: 'semi-bold';
     border-bottom: 1px solid #76C4FF;
     padding-bottom: 50px;
-    span {
-        font-size: 3rem;
+    span:nth-child(2) {
+        font-size: 0.1em;
+    }
+    @include tabletOnly {
+        font-size: 18.6rem;
     }
 }
 
 .v-large {
     font-size: 12.4rem;
     letter-spacing:-4.96px;
+    margin-bottom: 0;
+    @include tabletOnly {
+        font-size: 8rem;
+    }
 }
 
 .large {
     font-size: 7.2rem;
+    @include largeTablet {
+        font-size: 5rem;
+    }
 }
 .medium {
     font-size: 5rem;
@@ -45,6 +55,17 @@ h2 {
 .large-body {
     font-size: 2rem;
     line-height: 2.6rem;
+}
+.x-large-body {
+    font-size:3.6rem;
+}
+
+.white {
+    color: white;
+}
+
+.blue-underline {
+    border-bottom: 1px solid #0054FF;
 }
 
 .blue {

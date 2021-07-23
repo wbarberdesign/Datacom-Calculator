@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import { CSSTransition } from 'react-transition-group';
 
 import './scss/main.scss';
 import HomepageIntro from './components/sections/homepage-intro';
@@ -33,6 +34,7 @@ function App() {
   const [totalInEgress, setTotalInEgress] = useState(0)
   const [singleOrDuo, setSingleOrDuo] = useState('single')
   const [selectedCountry, setSelectedCountry] = useState('NZ')
+  const [userEmail, setUserEmail] = useState('')
 
 
   const handleTotalDataTB = (data) => {
@@ -55,33 +57,39 @@ function App() {
     setSelectedCountry(data)
   }
 
+  const handleUserEmail = (data) => {
+    setUserEmail(data)
+  }
+
   return (
     <main className="App">
       <HomepageIntro 
         startDataInput={handleDataInputStart}
       />
       <HomepageDataInput 
-        transitionIn={dataInputStart ? 'transition-in' : ''}
-        transitionOut={calculatorStart ? 'transition-out' : ''}
+        transitionIn={dataInputStart ? 'transition-in' : 'transition-out '}
+        // transitionOut={calculatorStart ? 'transition-out' : ''}
         totalDataTB={handleTotalDataTB}
         startCalculator={handleCalculatorStart}
       />
       <HomepageCalculator 
-        transitionIn={calculatorStart ? 'transition-in' : ''}
+        transitionIn={calculatorStart ? 'transition-in' : 'transition-out '}
         startResults={handleResultsStart}
         totalDataTB={totalDataTB}
         totalAPIRequests={handleTotalAPIRequests}
         totalInEgress={handleTotalInEgress}
         singleOrDuo={handleSingleOrDuo}
         selectedCountry={handleSelectedCountry}
+        userEmail={handleUserEmail}
       />
       <HomepageResults 
-        transitionIn={showResults ? 'transition-in' : ''}
+        transitionIn={showResults ? 'transition-in' : 'transition-out '}
         totalDataTB={totalDataTB}
         totalAPIRequests={totalAPIRequests}
         totalInEgress={totalInEgress}
         singleOrDuo={singleOrDuo}
         selectedCountry={selectedCountry}
+        userEmail={userEmail}
       />
     </main>
   );

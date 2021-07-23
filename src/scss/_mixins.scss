@@ -51,6 +51,9 @@
 }
 
 // RESPONSIVE MIXINS
+@mixin largeTablet {
+    @media (max-width: 1300px) { @content; }
+}
 @mixin tabletOnly {
     @media (max-width: $tabletBreakpoint) { @content; }
 }

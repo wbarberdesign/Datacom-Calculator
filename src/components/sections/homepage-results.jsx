@@ -1,70 +1,104 @@
 import Tile from '../blocks/tile'
+import CountUp from 'react-countup';
 
-const HomepageResults = ({transitionIn, totalDataTB, totalAPIRequests, totalInEgress, singleOrDuo, selectedCountry, datacomStorageCost}) => {
+const HomepageResults = ({transitionIn, totalDataTB, totalAPIRequests, totalInEgress, singleOrDuo, selectedCountry, datacomStorageCost, userEmail}) => {
 
-var Storage = totalDataTB;  // Customer Storage in TB 
-var Country = selectedCountry; // Country is either "NZ" or "AU"
-var RepOption = singleOrDuo; // Replication is either "Single" or "Dual"
-var Puts = Storage * 0.02; // Number of API Puts in Millions (default formula is Storage * 2%)
-var Gets = Storage * 0.08; // Number of API Gets in Millions (default formula is Storage * 8%)
-var Egress = totalInEgress; // Egress to Internet in TB (default formula is Storage * 10%)
-var FXAUD = 1.3473511; // Exchange Rate as of 16 July 2021
-var FXNZD = 1.4325155; // Exchange Rate as of 16 July 2021
-var FX=FXAUD
-var AWSEgressCost, AWSStorCost, AWSAPICost, AWSTotalCost, AWSNonStorPerc, DStorRate, DStorCost, DEgressCost, DTotalCost, DNonStorPerc;
-// Exchange Rate
-if (Country === "AU") {
-    FX = FXAUD;
-} else {
-    FX = FXNZD;
-}
+    if(transitionIn === 'transition-in') {
+    var requestOptions = {
+        method: 'POST',
+        redirect: 'follow'
+        };
 
-// Storage Costs (var = StorCost)
-if (Storage < 50) {
-        AWSStorCost = Storage * 1024 * 0.025;
-} else if (Storage < 500) {
-    AWSStorCost = (Storage - 50) * 1024 * 0.024 + (50 * 1024 * 0.025);
-} else {
-    AWSStorCost = (Storage - 500) * 1024 * 0.023 + (50 * 1024 * 0.025) + (450 * 1024 * 0.024);
-}
-//Replication Aspect
-if (singleOrDuo === "Dual") {
-    AWSStorCost = AWSStorCost * 2;
-} else {
-    AWSStorCost = AWSStorCost * 1;
-}
-//API Costs
-AWSAPICost = (Puts * 1000000 / 1000 * 0.0055) + (Gets * 1000000 / 1000 * 0.00044);
+        fetch(`https://seven.co.nz/media/datacom-send.php?data=${totalDataTB}&api=${totalAPIRequests}&egress=${totalInEgress}&country=${selectedCountry}&single=${singleOrDuo}&email=${userEmail}`, requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+    }
+		// --------------- //
+		// DEFAULT VARIABLES FROM DATACOM
+		// --------------- //
+		var Storage = 100;  // Customer Storage in TB 
+        var Country = "NZ"; // Country is either "NZ" or "AU"
+        var RepOption = "Dual"; // Replication is either "Single" or "Dual"
+        var APIReqs = Storage * 0.1; // Number of API requests in Millions (default formula is Storage * 10%)
+        var Egress = Storage * 0.1; // Egress to Internet in TB (default formula is Storage * 10%)
+        var FXAUD = 1.3473511; // Exchange Rate as of 16 July 2021
+        var FXNZD = 1.4325155; // Exchange Rate as of 16 July 2021
+        var FX = FXNZD;
+        var AWSEgressCost, AWSStorCost, AWSAPICost, AWSTotalCost, AWSNonStorPerc, DStorRate, DStorCost, DEgressCost, DTotalCost, DNonStorPerc;
+        console.log(selectedCountry);
+		// --------------- //
+		// OVVERIDE WITH USER INPUTS
+		// --------------- //
+		Storage=totalDataTB;
+		Country=selectedCountry;
+		Egress=totalInEgress;
+		APIReqs=totalAPIRequests;
+		RepOption=singleOrDuo;
 
-//Egress Costs
-if (Egress < 10) {
-    AWSEgressCost = (Egress * 1024 - 1) * 0.114;
-} else if (Egress < 50) {  
-    AWSEgressCost = (Egress - 10) * 1024 * 0.098 + (10239 - 1) * 0.114;
-} else if (Egress < 150) {
-    AWSEgressCost = (Egress - 50) * 1024 * 0.094 + (40 * 1024 * 0.098) + (10239 * 0.114);
-} else {
-    AWSEgressCost = (Egress - 150) * 1024 * 0.092 + (150 * 1024 * 0.094) + (40 * 1024 * 0.098) + (10239 * 0.114);
-}
-// Final FX Application
-AWSStorCost = AWSStorCost * FX;
-AWSAPICost = AWSAPICost * FX;
-AWSEgressCost = AWSEgressCost * FX;
-AWSTotalCost = AWSStorCost + AWSAPICost + AWSEgressCost; 
-AWSNonStorPerc = (AWSAPICost + AWSEgressCost) / AWSTotalCost;
+        // Pass in 10% into slider automatically.
 
-//Datacom Costs - Rate for Dual or Single site replication
-if (singleOrDuo == "Dual") {
-    DStorRate = 0.069;
-} else {
-    DStorRate = 0.034;
-}
-
-//Datacom Cost Calculation
-DStorCost = (Storage * 1024 * DStorRate) * FX;
-DEgressCost = ((Egress - 1) * 1024 * 0.09) * FX;
-DTotalCost = DStorCost + DEgressCost;
-DNonStorPerc= DEgressCost / DTotalCost;
+        // Exchange Rate
+        if (Country === "AU") {
+            FX = FXAUD;
+        }
+        
+        // Storage Costs (var = StorCost)
+        if (Storage < 50) {
+                AWSStorCost = Storage * 1024 * 0.025;
+        } else if (Storage < 500) {
+             AWSStorCost = (Storage - 50) * 1024 * 0.024 + (50 * 1024 * 0.025);
+        } else {
+             AWSStorCost = (Storage - 500) * 1024 * 0.023 + (50 * 1024 * 0.025) + (450 * 1024 * 0.024);
+        }
+        
+        //Replication Aspect
+        if (RepOption == "Dual") {
+            AWSStorCost = AWSStorCost * 2;
+        }
+        
+        //API Costs
+        var Puts = APIReqs * 0.2 // 20% of API requests are Puts
+        var Gets = APIReqs * 0.8 // 80% of API requests are Gets
+        
+        AWSAPICost = (Puts * 1000 * 0.0055) + (Gets * 1000 * 0.00044);
+        
+        //Egress Costs
+        if (Egress < 1/1024) {
+            AWSEgressCost = 0;
+        }  else if (Egress < 10) {
+            AWSEgressCost = (Egress * 1024 - 1) * 0.114;
+        } else if (Egress < 50) {  
+            AWSEgressCost = ((Egress - 10) * 1024 * 0.098) + (10239 * 0.114);
+        } else if (Egress < 150) {
+            AWSEgressCost = (Egress - 50) * 1024 * 0.094 + (40 * 1024 * 0.098) + (10239 * 0.114);
+        } else {
+            AWSEgressCost = (Egress - 150) * 1024 * 0.092 + (150 * 1024 * 0.094) + (40 * 1024 * 0.098) + (10239 * 0.114);
+        }
+        
+        // Final FX Application
+        AWSStorCost = AWSStorCost * FX;
+        AWSAPICost = AWSAPICost * FX;
+        AWSEgressCost = AWSEgressCost * FX;
+        AWSTotalCost = AWSStorCost + AWSAPICost + AWSEgressCost; 
+        AWSNonStorPerc = (AWSAPICost + AWSEgressCost) / AWSTotalCost;
+        
+        //Datacom Costs - Rate for Dual or Single site replication
+        if (RepOption == "Dual") {
+            DStorRate = 0.069;
+        } else {
+            DStorRate = 0.034;
+        }
+        
+        //Datacom Cost Calculation
+        DStorCost = Storage * 1024 * DStorRate;
+        if(Egress < 1) {
+            DEgressCost = 0;
+        } else {
+          DEgressCost = (Egress - 1) * 1024 * 0.09;
+        }
+        DTotalCost = DStorCost + DEgressCost;
+        DNonStorPerc= DEgressCost / DTotalCost;
 
 const marketLeaderData = {
     datasets: [
@@ -102,22 +136,30 @@ function numberWithCommas(x) {
 }
 
     return (
-    <section class={`homepage-results offset-top-large ${transitionIn}`}>
+    <section class={`homepage-results offset-top-large ${transitionIn}`} id="results">
         <div className="gc">
             <div className="d-1-10">
-                <h2>Your Results:</h2>
-                <h3 className="x-large light-blue">${numberWithCommas(DTotalCost.toFixed(0))}<span>{selectedCountry}D p/m</span></h3>
+                <h2 style={{ marginBottom: "5rem" }}>Your Results:</h2>
+                <h3 className="x-large light-blue">
+                    $<CountUp 
+                    start={0}
+                    duration={3}
+                    separator=","
+                    end={DTotalCost.toFixed(0)} 
+                    />
+                    <span>{selectedCountry}D p/m</span>
+                    </h3>
             </div>
-            <div className="d-4-10 offset-top-medium">
+            <div className="d-4-10 t-2-12 offset-top-medium">
                 <h3 className="large bold">Make bill-shock a thing of the past</h3>
             </div>
-            <div className="d-5-10 offset-bottom-medium">
+            <div className="d-5-10 t-3-12 offset-bottom-medium">
                 <p className="large-body">With the lowest per-gig pricing, fee caps and all-inclusive features, Datacom’s object storage is designed to leave you with no surprises at the end of the month.</p>            
             </div>
-            <div className="span-6">
+            <div className="span-6 t-span-12">
                 <h3 className="medium bold">Datacom</h3>
             </div>
-            <div className="span-6">
+            <div className="span-6 t-span-12 t-r-6">
                 <h3 className="medium bold">Market Leader</h3>
             </div>
                 <Tile 
@@ -137,8 +179,49 @@ function numberWithCommas(x) {
                     apiCost={numberWithCommas(AWSAPICost.toFixed(0))}
                     egressCost={numberWithCommas(AWSEgressCost.toFixed(0))}
                     arrow={'↑'}
+                    percentage={AWSNonStorPerc}
                 />
                 
+                {singleOrDuo === 'Dual' ?
+                <div className="warning-block span-4 t-span-12 flex flex-r flex-middle data-sovereignty-warning" style={{ backgroundColor: "#B10044" }}>
+                    <img src="https://seven.co.nz/media/site/3054248027-1626921512/exclamation-triangle-light.svg" alt="Exclaimation mark" />
+                    <img src="https://seven.co.nz/media/site/1228275226-1626921512/path-18.svg" alt="" />
+                    <div className="warning-block-description">
+                        <p>Data sovereignty compliance issues</p>
+                    </div>
+                </div>
+                : null}
+
+                <div className="warning-block span-8 t-span-12 flex flex-r flex-middle" style={{ backgroundColor: "#E60060" }}>
+                <img src="https://seven.co.nz/media/site/3054248027-1626921512/exclamation-triangle-light.svg" alt="Exclaimation mark" />
+                <h3 className="large bold" style={{ marginRight: "20px"}}>{(AWSNonStorPerc * 100).toFixed(0)}%</h3>
+                    <div className="warning-block-description">
+                        <p>Percentage for bill shock each month from the market leader</p>
+                    </div>
+                    <div className="up-indicator" style={{ backgroundColor: "#E60060" }}></div>
+                </div>
+                <div className="d-1-13 offset-top-large">
+                    <h3 className="medium bold">And not only that...</h3>
+                </div>
+                <div className="more-info-tile span-4 t-span-12 flex flex-center flex-middle flex-column text-center">
+                    <img src="https://seven.co.nz/media/site/3109965777-1626921513/server-light.svg" alt="" />
+                    <p className="large-body">It’s all locally stored, which means lower latency and faster for you.</p>
+                </div>
+                <div className="more-info-tile span-4 t-span-12 flex flex-center flex-middle flex-column text-center">
+                    <img src="https://seven.co.nz/media/site/45446754-1626921513/tachometer-alt-fastest.svg" alt="" />
+                    <p className="large-body">Save time because our API employs the S3 protocol, reducing time spent on backups.</p>
+                </div>
+                <div className="more-info-tile span-4 t-span-12 flex flex-center flex-middle flex-column text-center">
+                    <img src="https://seven.co.nz/media/site/1769772506-1626921513/user-headset-light.svg" alt="" />
+                    <p className="large-body">Like our data storage, we’re local too, making our support and response fast.</p>
+                </div>
+
+                <div className="span-6 m-span-12 offset-top-large">
+                    <h3 className="large bold">It's the best cost. It's good. It's fast.</h3>
+                </div>
+                <div className="d-1-6 t-span-12 offset-bottom-large">
+                    <p className="x-large-body"><a className="bold white blue-underline" href="/">Contact us</a> to find out more</p>
+                </div>
         </div>
     </section>
 )
