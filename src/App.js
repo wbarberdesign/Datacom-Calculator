@@ -12,6 +12,10 @@ function App() {
   // ----------------------------- *
   // TRANSITION STATE FUNCTIONS
   // ----------------------------- *
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [])
+
   const [dataInputStart, setDataInputStart] = useState(false)
   const [calculatorStart, setCalculatorStart] = useState(false)
   const [showResults, setShowResults] = useState(false)
@@ -48,7 +52,7 @@ function App() {
   const [totalDataTB, setTotalDataTB] = useState(0)
   const [totalAPIRequests, setTotalAPIRequests] = useState(0)
   const [totalInEgress, setTotalInEgress] = useState(0)
-  const [singleOrDuo, setSingleOrDuo] = useState('dual')
+  const [singleOrDuo, setSingleOrDuo] = useState('Dual')
   const [selectedCountry, setSelectedCountry] = useState('NZ')
   const [userEmail, setUserEmail] = useState('')
 

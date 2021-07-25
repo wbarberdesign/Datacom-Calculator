@@ -1,12 +1,26 @@
 import Button from '../common/button'
 import Slider from '../common/slider'
+import { useState } from 'react'
 import NumberInput from '../common/NumberInput'
 import RadioGroup from '../common/RadioGroup'
 
 const HomepageCalculator = ({ transitionIn, startResults, totalDataTB, totalAPIRequests, totalInEgress, singleOrDuo, selectedCountry, userEmail }) => {
+    const [selectedCountryInput, updateSelectedCountryInput] = useState('NZ');
+    const [selectedDualInput, updateSelectedDualInput] = useState('Dual');
+    
     const handleCalculateClick = (e) => {
         startResults(e)
         window.location.hash="results";
+    }
+
+    const handleSelectedCountryInput = (e) => {
+        updateSelectedCountryInput(e.target.value);
+        selectedCountry(e.target.value);
+    }
+
+    const handleSelectedDualInput = (e) => {
+        updateSelectedDualInput(e.target.value);
+        singleOrDuo(e.target.value);
     }
 
     return (
@@ -55,11 +69,11 @@ const HomepageCalculator = ({ transitionIn, startResults, totalDataTB, totalAPIR
                     <div className="radio-group">
                         <h4 className="bold">My data is:</h4>
                             <label key={`radio-1`}>
-                                <input name="single" type="radio" value='Single' onChange={e => singleOrDuo(e.target.value)} />
+                                <input checked={selectedDualInput === 'Single'} type="radio" value='Single' onChange={e => handleSelectedDualInput(e)} />
                                 Single site
                             </label>
                             <label key={`radio-2`}>
-                                <input name="single" type="radio" checked value='Dual' onChange={e => singleOrDuo(e.target.value)} />
+                                <input checked={selectedDualInput === 'Dual'} type="radio" value='Dual' onChange={e => handleSelectedDualInput(e)} />
                                 Dual-site geo-replicated
                             </label>
                     </div>
@@ -68,11 +82,11 @@ const HomepageCalculator = ({ transitionIn, startResults, totalDataTB, totalAPIR
                     <div className="radio-group">
                         <h4 className="bold">I am based in:</h4>
                             <label key={`radio-3`}>
-                                <input name="country" type="radio" checked value='NZ' onChange={e => selectedCountry(e.target.value)} />
+                                <input checked={selectedCountryInput === 'NZ'} type="radio" value='NZ' onChange={e => handleSelectedCountryInput(e)} />
                                 New Zealand
                             </label>
                             <label key={`radio-4`}>
-                                <input name="country" type="radio" value='AU' onChange={e => selectedCountry(e.target.value)} />
+                                <input checked={selectedCountryInput === 'AU'} name="country" type="radio" value='AU' onChange={e => handleSelectedCountryInput(e)} />
                                 Australia
                             </label>
                     </div>

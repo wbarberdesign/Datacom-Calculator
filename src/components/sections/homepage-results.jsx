@@ -127,6 +127,9 @@ function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+const percentageDifference = AWSTotalCost - DTotalCost / DTotalCost * 100;
+const billShock = (AWSAPICost + AWSEgressCost) / AWSTotalCost * 100;
+
     return (
     <section class={`homepage-results offset-top-large ${transitionIn}`} id="results" ref={ref}>
         <div className="gc">
@@ -173,8 +176,8 @@ function numberWithCommas(x) {
                     apiCost={AWSAPICost.toFixed(0)}
                     egressCost={AWSEgressCost.toFixed(0)}
                     arrow={'↑'}
-                    percentage={AWSNonStorPerc}
-                    altPercentage={DNonStorPerc}
+                    percentage={percentageDifference.toFixed(0)}
+                    billShock={billShock}
                 />
                 
                 {singleOrDuo === 'Dual' || selectedCountry === 'AU' ?
@@ -194,7 +197,7 @@ function numberWithCommas(x) {
 
                 <div className="warning-block span-8 t-span-12 flex flex-r flex-middle" style={{ backgroundColor: "#E60060" }}>
                 <img src="https://seven.co.nz/media/site/3054248027-1626921512/exclamation-triangle-light.svg" alt="Exclaimation mark" />
-                <h3 className="large bold" style={{ marginRight: "20px"}}>{(AWSNonStorPerc * 100).toFixed(0)}%</h3>
+                <h3 className="large bold" style={{ marginRight: "20px"}}>{billShock.toFixed(0)}%</h3>
                     <div className="warning-block-description">
                         <p>Percentage for bill shock each month from an alternate provider</p>
                     </div>

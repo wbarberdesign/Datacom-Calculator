@@ -3,7 +3,7 @@ import CountUp from 'react-countup';
 import useOnScreen from '../utils/isOnScreen'
 import { useRef } from 'react';
 
-const Tile = ({ tileName, chartData, tilePrice, dataCost, apiCost, egressCost, arrow, percentage, altPercentage }) => {
+const Tile = ({ tileName, chartData, tilePrice, dataCost, apiCost, egressCost, arrow, percentage, billShock }) => {
     const ref = useRef()
     const isVisible = useOnScreen(ref)
     return(
@@ -20,7 +20,7 @@ const Tile = ({ tileName, chartData, tilePrice, dataCost, apiCost, egressCost, a
                     </div>
                 :null}
             {tileName === 'market-leader-tile' ? 
-                <span style={{ marginBottom: '8px', marginLeft: '10px' }} className="arrow">{arrow} {(altPercentage * 100).toFixed(0)}%</span>
+                <span style={{ marginBottom: '8px', marginLeft: '10px' }} className="arrow">{arrow} {parseInt(percentage).toFixed(0)}%</span>
             :null}
             </div>
         <div className="chart-block flex flex-center tablet-only flex-middle">

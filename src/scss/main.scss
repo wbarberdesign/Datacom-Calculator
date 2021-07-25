@@ -442,6 +442,9 @@ section.homepage-data-input {
         top: 3.6rem;
         font-family: 'bold';
         font-size: 8rem;
+        @include mobileOnly {
+            font-size: 5rem;
+        }
     }
 }
 
