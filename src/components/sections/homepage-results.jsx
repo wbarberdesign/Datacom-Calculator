@@ -148,13 +148,13 @@ function numberWithCommas(x) {
                 <h3 className="large bold">Make bill-shock a thing of the past</h3>
             </div>
             <div className="d-5-10 t-3-12 offset-bottom-medium">
-                <p className="large-body">With the lowest per-gig pricing, fee caps and all-inclusive features, Datacom’s object storage is designed to leave you with no surprises at the end of the month.</p>            
+                <p className="large-body">With low per-gig pricing, no API charges and a generous 1 TB of free egress to internet per month, Datacom’s object storage is designed to leave you with no surprises at the end of the month.</p>            
             </div>
             <div className="span-6 t-span-12">
                 <h3 className="medium bold">Datacom</h3>
             </div>
             <div className="span-6 t-span-12 t-r-6">
-                <h3 className="medium bold">Market Leader <span className="body">Object storage (standard)</span></h3>
+                <h3 className="medium bold">Alternate Provider</h3>
             </div>
                 <Tile 
                     chartData={datacomData}
@@ -174,6 +174,7 @@ function numberWithCommas(x) {
                     egressCost={AWSEgressCost.toFixed(0)}
                     arrow={'↑'}
                     percentage={AWSNonStorPerc}
+                    altPercentage={DNonStorPerc}
                 />
                 
                 {singleOrDuo === 'Dual' || selectedCountry === 'AU' ?
@@ -181,7 +182,12 @@ function numberWithCommas(x) {
                     <img src="https://seven.co.nz/media/site/3054248027-1626921512/exclamation-triangle-light.svg" alt="Exclaimation mark" />
                     <img src="https://seven.co.nz/media/site/1228275226-1626921512/path-18.svg" alt="" />
                     <div className="warning-block-description">
-                        <p>Data sovereignty compliance issues</p>
+                        {selectedCountry === 'NZ' ?
+                            <p>Your data will be stored overseas</p>
+                        :
+                            <p>Your primary site data remains in country (Sydney), but your secondary site data will be stored overseas (eg Singapore or Hong Kong)</p>
+
+                        }
                     </div>
                 </div>
                 : null}
@@ -190,7 +196,7 @@ function numberWithCommas(x) {
                 <img src="https://seven.co.nz/media/site/3054248027-1626921512/exclamation-triangle-light.svg" alt="Exclaimation mark" />
                 <h3 className="large bold" style={{ marginRight: "20px"}}>{(AWSNonStorPerc * 100).toFixed(0)}%</h3>
                     <div className="warning-block-description">
-                        <p>Percentage for bill shock each month from the market leader</p>
+                        <p>Percentage for bill shock each month from an alternate provider</p>
                     </div>
                     <div className="up-indicator" style={{ backgroundColor: "#E60060" }}></div>
                 </div>
@@ -214,15 +220,15 @@ function numberWithCommas(x) {
                     <h3 className="large bold">It's the best cost. It's good. It's fast.</h3>
                 </div>
                 <div className="d-1-6 t-span-12 offset-bottom-large">
-                    <p className="x-large-body"><a className="bold white blue-underline" href="/">Contact us</a> to find out more</p>
+                    <p className="x-large-body"><a className="bold white blue-underline" href="https://datacom.com/nz/en/about-us/partners/dell-technologies/object-storage">Contact us</a> to find out more</p>
                 </div>
                 <div className="offset-bottom-large d-1-13">
                 <ol>
-                    <li>Alternate object storage Provider pricing sourced from publicly published pricing and is accurate as of 16/07/2021</li>
-                    <li>Exchange rates sourced from <a href="www.xe.com">www.xe.com</a> and is accurate as of 16/07/2021</li>
+                    <li>Alternate object storage provider pricing sourced from publicly published pricing and is accurate as of 16/07/2021</li>
+                    <li>Exchange rates sourced from <a href="www.xe.com">www.xe.com</a> and are accurate as of 16/07/2021</li>
                     <li>API Request costs assume 20% of requests are PUTs, and 80% of requests are GETs</li>
                     <li>The costs displayed are for comparison only, final costs will be determined after the completion of a detailed analysis of your particular circumstances</li>
-                    <li>Comparison product is an established public cloud provider</li>
+                    <li>Comparison product is an established public cloud provider and in accordance with an online calculator of fees</li>
                 </ol>
             </div>
         </div>

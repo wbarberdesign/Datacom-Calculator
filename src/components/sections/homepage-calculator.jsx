@@ -39,7 +39,7 @@ const HomepageCalculator = ({ transitionIn, startResults, totalDataTB, totalAPIR
                 <div className="span-4 t-span-12 flex flex-column flex-s-between">
                     <article className="text-block">
                         <h2>Egress*</h2>
-                        <p>“How much data you transfer from object storage through the internet per month”</p>
+                        <p>How much data you transfer from object storage through the internet per month</p>
                     </article>
                     <div className="homepage-calculator-box">
                         <Slider 
@@ -52,21 +52,30 @@ const HomepageCalculator = ({ transitionIn, startResults, totalDataTB, totalAPIR
                     </div>
                 </div>
                 <div className="span-6 m-r-2 m-span-12">
-                    <RadioGroup 
-                        mainLabel="My data is:"
-                        radioOne="Single"
-                        radioTwo="Dual"
-                        data={e => singleOrDuo(e)}
-                    />
+                    <div className="radio-group">
+                        <h4 className="bold">My data is:</h4>
+                            <label key={`radio-1`}>
+                                <input name="single" type="radio" value='Single' onChange={e => singleOrDuo(e.target.value)} />
+                                Single site
+                            </label>
+                            <label key={`radio-2`}>
+                                <input name="single" type="radio" checked value='Dual' onChange={e => singleOrDuo(e.target.value)} />
+                                Dual-site geo-replicated
+                            </label>
+                    </div>
                 </div>
-                <div className="d-9-13 m-span-12">
-                    <RadioGroup 
-                        mainLabel="I am based in:"
-                        radioOne="NZ"
-                        radioTwo="AU"
-                        defaultSelection="NZ"
-                        data={e => selectedCountry(e)}
-                    />
+                <div className="d-9-13 t-span-6 m-span-12">
+                    <div className="radio-group">
+                        <h4 className="bold">I am based in:</h4>
+                            <label key={`radio-3`}>
+                                <input name="country" type="radio" checked value='NZ' onChange={e => selectedCountry(e.target.value)} />
+                                New Zealand
+                            </label>
+                            <label key={`radio-4`}>
+                                <input name="country" type="radio" value='AU' onChange={e => selectedCountry(e.target.value)} />
+                                Australia
+                            </label>
+                    </div>
                 </div>
                 <div className="d-1-9 m-1-13 flex flex-column">
                     <label htmlFor="emailAddress"><b>Email Address</b></label>
@@ -81,7 +90,7 @@ const HomepageCalculator = ({ transitionIn, startResults, totalDataTB, totalAPIR
                     </div>
                 </div>
                 <div className="d-1-9 t-1-8 m-1-13">
-                    <p style={{ color: "#111144", fontSize: "14px", lineHeight: "20px" }}>*To make it easy for you to see how you can have the lowest cost option with Datacom’s object storage without compromise, we’ve used an equation of average API’s and In/Egress related to the data you have in object storage per month. Use the sliders to add in your numbers.</p>
+                    <p style={{ color: "#111144", fontSize: "14px", lineHeight: "20px" }}>*To make it easy for you to see how you can have the lowest cost option with Datacom’s object storage without compromise, we’ve used an equation of average API’s and Egress related to the data you have in object storage per month. Use the sliders to fine-tune your numbers.</p>
                 </div>
             </div>
         </section>

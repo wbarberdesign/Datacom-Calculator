@@ -51,6 +51,7 @@
     }
     .desktop-only { display: none!important; }
     .mobile-only { display: flex; }
+    .tablet-only { display: none; }
 }
 
 @for $columnCount from 0 through 12 {

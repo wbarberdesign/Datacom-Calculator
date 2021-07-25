@@ -48,7 +48,7 @@ function App() {
   const [totalDataTB, setTotalDataTB] = useState(0)
   const [totalAPIRequests, setTotalAPIRequests] = useState(0)
   const [totalInEgress, setTotalInEgress] = useState(0)
-  const [singleOrDuo, setSingleOrDuo] = useState('single')
+  const [singleOrDuo, setSingleOrDuo] = useState('dual')
   const [selectedCountry, setSelectedCountry] = useState('NZ')
   const [userEmail, setUserEmail] = useState('')
 
