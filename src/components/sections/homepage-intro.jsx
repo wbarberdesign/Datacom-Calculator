@@ -22,7 +22,7 @@ const HomepageIntro = ({ startDataInput }) => {
                     </div>
                 </div>
                 <div className="d-7-13 t-r-1 t-1-13">
-                    <img src="https://seven.co.nz/media/site/3480072874-1626754083/3-balls-final-website-2.png" alt="" />
+                    <img src="/ballz.png" alt="" />
                 </div>
             </div>
         </section>

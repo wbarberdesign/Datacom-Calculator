@@ -1,18 +1,13 @@
 import Tile from '../blocks/tile'
+import useOnScreen from '../utils/isOnScreen'
 import CountUp from 'react-countup';
+import { useRef  } from 'react';
 
 const HomepageResults = ({transitionIn, totalDataTB, totalAPIRequests, totalInEgress, singleOrDuo, selectedCountry, datacomStorageCost, userEmail}) => {
-
+    const ref = useRef()
+    const isVisible = useOnScreen(ref)
+    
     if(transitionIn === 'transition-in') {
-    var requestOptions = {
-        method: 'POST',
-        redirect: 'follow'
-        };
-
-        fetch(`https://seven.co.nz/media/datacom-send.php?data=${totalDataTB}&api=${totalAPIRequests}&egress=${totalInEgress}&country=${selectedCountry}&single=${singleOrDuo}&email=${userEmail}`, requestOptions)
-        .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
     }
 		// --------------- //
 		// DEFAULT VARIABLES FROM DATACOM
@@ -26,7 +21,6 @@ const HomepageResults = ({transitionIn, totalDataTB, totalAPIRequests, totalInEg
         var FXNZD = 1.4325155; // Exchange Rate as of 16 July 2021
         var FX = FXNZD;
         var AWSEgressCost, AWSStorCost, AWSAPICost, AWSTotalCost, AWSNonStorPerc, DStorRate, DStorCost, DEgressCost, DTotalCost, DNonStorPerc;
-        console.log(selectedCountry);
 		// --------------- //
 		// OVVERIDE WITH USER INPUTS
 		// --------------- //
@@ -103,8 +97,7 @@ const HomepageResults = ({transitionIn, totalDataTB, totalAPIRequests, totalInEg
 const marketLeaderData = {
     datasets: [
     {
-        label: '# of Votes',
-        data: [DStorCost, 0, DEgressCost],
+        data: [DStorCost, AWSAPICost, DEgressCost],
         backgroundColor: [
         '#76C4FF',
         '#DE5835',
@@ -118,7 +111,6 @@ const marketLeaderData = {
 const datacomData = {
     datasets: [
     {
-        label: '# of Votes',
         data: [AWSStorCost, 0, AWSEgressCost],
         backgroundColor: [
         '#76C4FF',
@@ -136,19 +128,21 @@ function numberWithCommas(x) {
 }
 
     return (
-    <section class={`homepage-results offset-top-large ${transitionIn}`} id="results">
+    <section class={`homepage-results offset-top-large ${transitionIn}`} id="results" ref={ref}>
         <div className="gc">
-            <div className="d-1-10">
+            <div className="d-1-13">
                 <h2 style={{ marginBottom: "5rem" }}>Your Results:</h2>
-                <h3 className="x-large light-blue">
-                    $<CountUp 
-                    start={0}
-                    duration={3}
-                    separator=","
-                    end={DTotalCost.toFixed(0)} 
-                    />
-                    <span>{selectedCountry}D p/m</span>
+                {isVisible ?
+                    <h3 className="x-large light-blue">
+                        $<CountUp 
+                        start={0}
+                        duration={3}
+                        separator=","
+                        end={DTotalCost.toFixed(0)} 
+                        />
+                        <span>{selectedCountry}D p/m</span>
                     </h3>
+                :null}
             </div>
             <div className="d-4-10 t-2-12 offset-top-medium">
                 <h3 className="large bold">Make bill-shock a thing of the past</h3>
@@ -160,12 +154,12 @@ function numberWithCommas(x) {
                 <h3 className="medium bold">Datacom</h3>
             </div>
             <div className="span-6 t-span-12 t-r-6">
-                <h3 className="medium bold">Market Leader</h3>
+                <h3 className="medium bold">Market Leader <span className="body">Object storage (standard)</span></h3>
             </div>
                 <Tile 
                     chartData={datacomData}
                     tileName="datacom-tile"
-                    tilePrice={numberWithCommas(DTotalCost.toFixed(0))}
+                    tilePrice={DTotalCost.toFixed(0)}
                     dataCost={DStorCost.toFixed(0)}
                     apiCost={0}
                     egressCost={DEgressCost.toFixed(0)}
@@ -174,15 +168,15 @@ function numberWithCommas(x) {
                 <Tile 
                     chartData={marketLeaderData}
                     tileName="market-leader-tile"
-                    tilePrice={numberWithCommas(AWSTotalCost.toFixed(0))}
-                    dataCost={numberWithCommas(AWSStorCost.toFixed(0))}
-                    apiCost={numberWithCommas(AWSAPICost.toFixed(0))}
-                    egressCost={numberWithCommas(AWSEgressCost.toFixed(0))}
+                    tilePrice={AWSTotalCost.toFixed(0)}
+                    dataCost={AWSStorCost.toFixed(0)}
+                    apiCost={AWSAPICost.toFixed(0)}
+                    egressCost={AWSEgressCost.toFixed(0)}
                     arrow={'↑'}
                     percentage={AWSNonStorPerc}
                 />
                 
-                {singleOrDuo === 'Dual' ?
+                {singleOrDuo === 'Dual' || selectedCountry === 'AU' ?
                 <div className="warning-block span-4 t-span-12 flex flex-r flex-middle data-sovereignty-warning" style={{ backgroundColor: "#B10044" }}>
                     <img src="https://seven.co.nz/media/site/3054248027-1626921512/exclamation-triangle-light.svg" alt="Exclaimation mark" />
                     <img src="https://seven.co.nz/media/site/1228275226-1626921512/path-18.svg" alt="" />
@@ -222,6 +216,15 @@ function numberWithCommas(x) {
                 <div className="d-1-6 t-span-12 offset-bottom-large">
                     <p className="x-large-body"><a className="bold white blue-underline" href="/">Contact us</a> to find out more</p>
                 </div>
+                <div className="offset-bottom-large d-1-13">
+                <ol>
+                    <li>Alternate object storage Provider pricing sourced from publicly published pricing and is accurate as of 16/07/2021</li>
+                    <li>Exchange rates sourced from <a href="www.xe.com">www.xe.com</a> and is accurate as of 16/07/2021</li>
+                    <li>API Request costs assume 20% of requests are PUTs, and 80% of requests are GETs</li>
+                    <li>The costs displayed are for comparison only, final costs will be determined after the completion of a detailed analysis of your particular circumstances</li>
+                    <li>Comparison product is an established public cloud provider</li>
+                </ol>
+            </div>
         </div>
     </section>
 )

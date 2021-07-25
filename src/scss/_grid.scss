@@ -69,6 +69,9 @@
 }
 .offset-top-large {
     margin-top: $offsetLarge;
+    @include mobileOnly {
+        margin-top: $offsetSmall;
+    }
 }
 .offset-top-medium {
     margin-top: $offsetMedium;

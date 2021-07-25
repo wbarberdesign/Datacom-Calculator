@@ -8,6 +8,7 @@
 @import '_aspectRatios.scss';
 @import '_fontFace.scss';
 @import '_text.scss';
+@import '_inputRange.scss';
 
 html {
     font-size: 62.5%;
@@ -77,7 +78,8 @@ button {
     background: transparent;
     border: none;
     padding: 0;
-    font-family: $fontPrimary;
+    font-family: 'semi-bold';
+    font-size: 1.8rem;
     &.primary {
         background: #0054FF;
         padding: 1em 3em;
@@ -103,12 +105,23 @@ button {
 input[type="number"] {
     color: #0054FF;
     font-size: 8rem;
-    margin-bottom: 0.8em;
+    // margin-bottom: 0.8em;
     border: 1px solid #D0D0D0;
     border-radius: 5px;
     padding: 3.6rem;
     line-height: 8.6rem;
     width: calc(100% - 7.2rem);
+    @include mobileOnly {
+        font-size: 5rem;
+        padding: 1.4rem;
+        width: calc(100% - 2.8rem);
+    }
+}
+
+label, input[type="radio"] {
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -133,10 +146,6 @@ input[type=number] {
             margin-left: 0;
         }
     }
-}
-
-input[type="range"] {
-    width: 100%;
 }
 
 .slider-container,
@@ -190,21 +199,44 @@ main {
         opacity: 0;
         @include translateY(50px);
         @include transition(0s padding, 0s margin-top, transform .5s);
+        .gc div:nth-child(1) {
+            opacity: 0;
+            @include translateY(20px);
+            @include transition(.5s all .3s ease-in-out);
+        }
         &.transition-in {
             @include translateY(0);
             opacity: 1;
+            .gc div:nth-child(1) {
+                opacity: 1;
+                @include translateY(0);
+            }
         }
         &.transition-out {
             opacity: 0;
-            max-height: 0;
             padding: 0;
             margin-top: 0;
-            @include translateY(50px);
+            @include translateY(-50px);
+        }
+        @include mobileOnly {
+            padding: 2rem!important;
+            margin: 5rem 0.8rem!important;
         }
     }
 }
 
-section.homepage-intro {
+
+main {
+    section.homepage-results {
+        @include mobileOnly {
+            padding: 2rem 0!important;
+        }
+    }
+    section.homepage-intro {
+        @include mobileOnly {
+            padding: 2rem 1rem!important;
+        }
+    }
 }
 // --------------------------------------------- *
 // #HOMEPAGE CALCULATOR
@@ -222,6 +254,9 @@ section.homepage-calculator {
         border: 1px solid #D0D0D0;
         border-radius: 5px;
         padding: 0 3.6rem;
+        @include largeTablet {
+            padding: 0 1rem;
+        }
         .slider-container {
             display: grid;
             margin: 20px 0;
@@ -294,6 +329,7 @@ section.homepage-data-input {
             padding: 2rem;
             border-radius: 10px;
             border: 1px solid #F4F4F4;
+            position: relative;
             &:not(last-of-type) {
                 margin-bottom: 20px;
             }
@@ -318,8 +354,28 @@ section.homepage-data-input {
             .chart-data-info {
                 margin: 10px;
                 margin-left: 0;
+                position: relative;
+            }
+            .warning-block {
+                border-radius: 10px;
+                background: #E60060;
+                right: 5px;
+                top: 5px;
+                padding: 10px;
+                height: calc(100% - 2rem - 10px);
+                position: absolute;
+                svg {
+                    width: 20px;
+                    height: 20px;
+                }
             }
         }
+    }
+    @include mobileOnly {
+        padding: 2rem;
+        grid-template-columns: 33% 66%;
+        grid-gap: 1rem;
+        row-gap: 1rem;
     }
 }
 
@@ -368,6 +424,9 @@ section.homepage-data-input {
         font-size: 2rem;
         padding-top: 4rem;
         max-width: 66%;
+        @include mobileOnly {
+            max-width: unset;
+        }
     }
 }
 

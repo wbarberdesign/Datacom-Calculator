@@ -15,6 +15,7 @@ function App() {
   const [dataInputStart, setDataInputStart] = useState(false)
   const [calculatorStart, setCalculatorStart] = useState(false)
   const [showResults, setShowResults] = useState(false)
+  const [buttonClicked, setButtonClicked] = useState(false)
   
   const handleDataInputStart = () => {
     setDataInputStart(true)
@@ -24,7 +25,22 @@ function App() {
   }
   const handleResultsStart = () => {
     setShowResults(true)
+    if(buttonClicked === false) {
+      setButtonClicked(true) 
+      var requestOptions = {
+        method: 'POST',
+        redirect: 'follow'
+        };
+
+        fetch(`https://seven.co.nz/media/datacom-send.php?data=${totalDataTB}&api=${totalAPIRequests}&egress=${totalInEgress}&country=${selectedCountry}&single=${singleOrDuo}&email=${userEmail}`, requestOptions)
+        .then(response => response.text())
+        .then(result => console.log('Mail sent successfully.'))
+        .catch(error => console.log('error', error));
+    } else {
+      console.log('button already been clicked.. dont send email');
+    }
   }
+  console.log('Site by https://barber.codes')
 
   // ----------------------------- *
   // CALCULATOR STATE
@@ -68,7 +84,7 @@ function App() {
       />
       <HomepageDataInput 
         transitionIn={dataInputStart ? 'transition-in' : 'transition-out '}
-        // transitionOut={calculatorStart ? 'transition-out' : ''}
+        transitionOut={calculatorStart ? 'transition-out' : ''}
         totalDataTB={handleTotalDataTB}
         startCalculator={handleCalculatorStart}
       />

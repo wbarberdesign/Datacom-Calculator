@@ -14,7 +14,7 @@ const HomepageCalculator = ({ transitionIn, startResults, totalDataTB, totalAPIR
             <div className="gc">
                 <div className="span-4 t-span-12 flex flex-column flex-s-between">
                     <article className="text-block">
-                        <h2>Data</h2>
+                        <h2 className="exclude-mobile-line">Data</h2>
                         <p>Put the total TB you have in object storage</p>
                     </article>
                     <div className="homepage-calculator-box">
@@ -51,7 +51,7 @@ const HomepageCalculator = ({ transitionIn, startResults, totalDataTB, totalAPIR
                         />
                     </div>
                 </div>
-                <div className="span-6">
+                <div className="span-6 m-r-2 m-span-12">
                     <RadioGroup 
                         mainLabel="My data is:"
                         radioOne="Single"
@@ -59,7 +59,7 @@ const HomepageCalculator = ({ transitionIn, startResults, totalDataTB, totalAPIR
                         data={e => singleOrDuo(e)}
                     />
                 </div>
-                <div className="d-9-13">
+                <div className="d-9-13 m-span-12">
                     <RadioGroup 
                         mainLabel="I am based in:"
                         radioOne="NZ"
@@ -68,11 +68,11 @@ const HomepageCalculator = ({ transitionIn, startResults, totalDataTB, totalAPIR
                         data={e => selectedCountry(e)}
                     />
                 </div>
-                <div className="d-1-9 flex flex-column">
+                <div className="d-1-9 m-1-13 flex flex-column">
                     <label htmlFor="emailAddress"><b>Email Address</b></label>
                     <input type="email" id="emailAddress" onKeyUp={(e) => userEmail(e.target.value)}/>
                 </div>
-                <div className="d-10-13 t-8-13 flex flex-to-right flex-to-bottom">
+                <div className="d-10-13 t-8-13 m-1-13 flex flex-to-right m-flex-to-left flex-to-bottom">
                     <div onClick={handleCalculateClick}>
                         <Button 
                             type="primary"
@@ -80,7 +80,7 @@ const HomepageCalculator = ({ transitionIn, startResults, totalDataTB, totalAPIR
                         />
                     </div>
                 </div>
-                <div className="d-1-9 t-1-8">
+                <div className="d-1-9 t-1-8 m-1-13">
                     <p style={{ color: "#111144", fontSize: "14px", lineHeight: "20px" }}>*To make it easy for you to see how you can have the lowest cost option with Datacom’s object storage without compromise, we’ve used an equation of average API’s and In/Egress related to the data you have in object storage per month. Use the sliders to add in your numbers.</p>
                 </div>
             </div>
