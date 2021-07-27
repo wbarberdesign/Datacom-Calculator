@@ -7,7 +7,6 @@ import RadioGroup from '../common/RadioGroup'
 const HomepageCalculator = ({ transitionIn, startResults, totalDataTB, totalAPIRequests, totalInEgress, singleOrDuo, selectedCountry, userEmail }) => {
     const [selectedCountryInput, updateSelectedCountryInput] = useState('NZ');
     const [selectedDualInput, updateSelectedDualInput] = useState('Dual');
-    
     const handleCalculateClick = (e) => {
         startResults(e)
         window.location.hash="results";
@@ -46,7 +45,8 @@ const HomepageCalculator = ({ transitionIn, startResults, totalDataTB, totalAPIR
                             min={5}
                             max={100}
                             type=" Million"
-                            sliderActivated={false}
+                            sliderActivated={transitionIn}
+                            start={totalDataTB / 10}
                         />
                     </div>
                 </div>
@@ -62,6 +62,7 @@ const HomepageCalculator = ({ transitionIn, startResults, totalDataTB, totalAPIR
                             max={20}
                             type="TB"
                             sliderActivated={false}
+                            start={0}
                         />
                     </div>
                 </div>

@@ -19,12 +19,13 @@ const Tile = ({ tileName, chartData, tilePrice, dataCost, apiCost, egressCost, a
                         />
                     </div>
                 :null}
-            {tileName === 'market-leader-tile' ? 
-                <span style={{ marginBottom: '8px', marginLeft: '10px' }} className="arrow">{arrow} {parseInt(percentage).toFixed(0)}%</span>
+            {tileName === 'market-leader-tile' && percentage > 0? 
+                <span style={{ marginBottom: '8px', marginLeft: '10px' }} className="arrow">
+                    {arrow} {parseInt(percentage).toFixed(0)}%</span>
             :null}
             </div>
         <div className="chart-block flex flex-center tablet-only flex-middle">
-            <Doughnut data={chartData} />
+            <Doughnut data={chartData} key={tileName} />
         </div>
         <div className="chart-data">
             <div className="chart-data-block">

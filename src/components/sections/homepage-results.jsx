@@ -97,7 +97,7 @@ const HomepageResults = ({transitionIn, totalDataTB, totalAPIRequests, totalInEg
 const marketLeaderData = {
     datasets: [
     {
-        data: [DStorCost, AWSAPICost, DEgressCost],
+        data: [AWSStorCost, AWSAPICost, AWSEgressCost],
         backgroundColor: [
         '#76C4FF',
         '#DE5835',
@@ -111,7 +111,7 @@ const marketLeaderData = {
 const datacomData = {
     datasets: [
     {
-        data: [AWSStorCost, 0, AWSEgressCost],
+        data: [DStorCost, 0, DEgressCost],
         backgroundColor: [
         '#76C4FF',
         '#DE5835',
@@ -127,7 +127,7 @@ function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-const percentageDifference = AWSTotalCost - DTotalCost / DTotalCost * 100;
+const percentageDifference = (AWSTotalCost - DTotalCost) / DTotalCost * 100;
 const billShock = (AWSAPICost + AWSEgressCost) / AWSTotalCost * 100;
 
     return (
@@ -199,7 +199,7 @@ const billShock = (AWSAPICost + AWSEgressCost) / AWSTotalCost * 100;
                 <img src="https://seven.co.nz/media/site/3054248027-1626921512/exclamation-triangle-light.svg" alt="Exclaimation mark" />
                 <h3 className="large bold" style={{ marginRight: "20px"}}>{billShock.toFixed(0)}%</h3>
                     <div className="warning-block-description">
-                        <p>Percentage for bill shock each month from an alternate provider</p>
+                        <p>of your monthly bill is made up of unexpected non-storage costs</p>
                     </div>
                     <div className="up-indicator" style={{ backgroundColor: "#E60060" }}></div>
                 </div>

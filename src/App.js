@@ -58,7 +58,8 @@ function App() {
 
 
   const handleTotalDataTB = (data) => {
-    setTotalDataTB(data)
+    setTotalDataTB(data);
+    setTotalAPIRequests(parseInt(data) * 10)
   }
 
   const handleTotalAPIRequests = (data) => {
