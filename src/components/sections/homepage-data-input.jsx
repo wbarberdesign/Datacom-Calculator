@@ -12,7 +12,7 @@ const HomepageCalculator = ({ transitionIn, transitionOut, totalDataTB, startCal
                 <div className="d-1-13">
                     <article className="text-block">
                         <h3 className="mobile-only black h2">Data</h3>
-                        <p className="dark-blue medium semi-bold m-body">Put the total TB you have in object storage</p>
+                        <p className="dark-blue medium semi-bold m-body">Put the total terabytes you have in object storage</p>
                         <div className="input-container">
                         <NumberInput 
                             data={e => totalDataTB(e)}

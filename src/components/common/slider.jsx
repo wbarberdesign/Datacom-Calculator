@@ -6,16 +6,30 @@ const Slider = ({ data, min, max, type, sliderActivated, start }) => {
     const [sliderChanged, setSliderChanged] = useState(false)
 
     useEffect(() => {
-        if(start > 5 && sliderActivated === 'transition-in' && sliderChanged === false) {
+        if(start > 5 && start < 1000 && sliderActivated === 'transition-in' && sliderChanged === false && type === ' Million') {
             setSliderValue(start.toFixed(0))
             setSliderChanged(true)
-            data(sliderValue)
-        } else if(start <= 5 && sliderActivated === 'transition-in' && sliderChanged === false) {
+        } else if(start <= 5 && sliderActivated === 'transition-in' && sliderChanged === false && type === ' Million') {
             setSliderValue(5)
             setSliderChanged(true)
-            data(sliderValue)
+        } else if(start >= 1000 && sliderActivated === 'transition-in' && sliderChanged === false && type === ' Million') {
+            setSliderValue(100)
+            setSliderChanged(true)
+        } else if(start >= 30 && sliderActivated === 'transition-in' && sliderChanged === false && type === 'TB') {
+            setSliderValue(30)
+            setSliderChanged(true)
+        } else if(start < 30 && sliderActivated === 'transition-in' && sliderChanged === false && type === 'TB') {
+            if(start < 1.7) {
+                setSliderValue(1)
+                setSliderChanged(true)
+            } else {
+                setSliderValue(start.toFixed(0))
+                setSliderChanged(true)
+            }
         }
     });
+
+    data(sliderValue);
 
     const handleSetSliderValue= (slider) => {
         setSliderValue(slider.target.value)

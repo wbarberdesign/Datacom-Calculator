@@ -13,7 +13,7 @@ const Tile = ({ tileName, chartData, tilePrice, dataCost, apiCost, egressCost, a
                     <div className={`large bold ${tileName === 'market-leader-tile' ? 'dark-blue' : ''}`}>
                         $<CountUp 
                         start={0}
-                        duration={3}
+                        duration={1.5}
                         separator=","
                         end={tilePrice} 
                         />
@@ -36,7 +36,7 @@ const Tile = ({ tileName, chartData, tilePrice, dataCost, apiCost, egressCost, a
                     <div className="total-price h2 bold">
                     $<CountUp 
                     start={0}
-                    duration={3}
+                    duration={1.5}
                     separator=","
                     end={dataCost} 
                     />
@@ -84,7 +84,7 @@ const Tile = ({ tileName, chartData, tilePrice, dataCost, apiCost, egressCost, a
                         </div>
                     :null}
                 </div>
-                {tileName === 'market-leader-tile' ?
+                {tileName === 'market-leader-tile' && egressCost > 0 ?
                     <div className="warning-block flex flex-center flex-middle">
                         <svg xmlns="http://www.w3.org/2000/svg" width="82.064" height="72.949" viewBox="0 0 82.064 72.949">
                             <defs>

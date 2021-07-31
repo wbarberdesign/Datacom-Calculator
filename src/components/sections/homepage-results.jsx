@@ -8,6 +8,7 @@ const HomepageResults = ({transitionIn, totalDataTB, totalAPIRequests, totalInEg
     const isVisible = useOnScreen(ref)
     
     if(transitionIn === 'transition-in') {
+        console.log(`results - total api ${totalAPIRequests}`);
     }
 		// --------------- //
 		// DEFAULT VARIABLES FROM DATACOM
@@ -139,7 +140,7 @@ const billShock = (AWSAPICost + AWSEgressCost) / AWSTotalCost * 100;
                     <h3 className="x-large light-blue">
                         $<CountUp 
                         start={0}
-                        duration={3}
+                        duration={4}
                         separator=","
                         end={DTotalCost.toFixed(0)} 
                         />
@@ -180,20 +181,23 @@ const billShock = (AWSAPICost + AWSEgressCost) / AWSTotalCost * 100;
                     billShock={billShock}
                 />
                 
-                {singleOrDuo === 'Dual' || selectedCountry === 'AU' ?
-                <div className="warning-block span-4 t-span-12 flex flex-r flex-middle data-sovereignty-warning" style={{ backgroundColor: "#B10044" }}>
-                    <img src="https://seven.co.nz/media/site/3054248027-1626921512/exclamation-triangle-light.svg" alt="Exclaimation mark" />
-                    <img src="https://seven.co.nz/media/site/1228275226-1626921512/path-18.svg" alt="" />
-                    <div className="warning-block-description">
-                        {selectedCountry === 'NZ' ?
-                            <p>Your data will be stored overseas</p>
-                        :
+                {singleOrDuo === 'Dual' && selectedCountry === 'AU' ?
+                    <div className="warning-block span-4 t-span-12 flex flex-r flex-middle data-sovereignty-warning" style={{ backgroundColor: "#B10044" }}>
+                        <img src="https://seven.co.nz/media/site/3054248027-1626921512/exclamation-triangle-light.svg" alt="Exclaimation mark" />
+                        <img src="https://seven.co.nz/media/site/1228275226-1626921512/path-18.svg" alt="" />
+                        <div className="warning-block-description">
                             <p>Your primary site data remains in country (Sydney), but your secondary site data will be stored overseas (eg Singapore or Hong Kong)</p>
-
-                        }
+                        </div>
                     </div>
-                </div>
-                : null}
+                : selectedCountry === 'NZ' ?
+                    <div className="warning-block span-4 t-span-12 flex flex-r flex-middle data-sovereignty-warning" style={{ backgroundColor: "#B10044" }}>
+                        <img src="https://seven.co.nz/media/site/3054248027-1626921512/exclamation-triangle-light.svg" alt="Exclaimation mark" />
+                        <img src="https://seven.co.nz/media/site/1228275226-1626921512/path-18.svg" alt="" />
+                        <div className="warning-block-description">
+                            <p>Your data will be stored overseas</p>
+                        </div>
+                    </div>
+                :null}
 
                 <div className="warning-block span-8 t-span-12 flex flex-r flex-middle" style={{ backgroundColor: "#E60060" }}>
                 <img src="https://seven.co.nz/media/site/3054248027-1626921512/exclamation-triangle-light.svg" alt="Exclaimation mark" />
