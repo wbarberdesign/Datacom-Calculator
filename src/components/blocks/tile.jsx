@@ -113,7 +113,7 @@ const Tile = ({ tileName, chartData, tilePrice, dataCost, apiCost, egressCost, a
                 </g>
             </svg>
             } 
-            <p>In country replication: <b>{tileName === 'market-leader-tile' ? 'no' : 'yes'}</b></p>
+            <p>In country multi-region replication: <b>{tileName === 'market-leader-tile' ? 'no' : 'yes'}</b></p>
         </div>
     </div>
     )

@@ -1,14 +1,14 @@
 import Button from '../common/button'
 import Slider from '../common/slider'
+import SliderNew from '../common/slider-new'
 import { useState } from 'react'
 import NumberInput from '../common/NumberInput'
 import RadioGroup from '../common/RadioGroup'
 
-const HomepageCalculator = ({ transitionIn, startResults, totalDataTB, totalAPIRequests, totalInEgress, singleOrDuo, selectedCountry, userEmail }) => {
+const HomepageCalculator = ({ transitionIn, startResults, totalDataTB, totalAPIRequests, totalInEgress, singleOrDuo, selectedCountry, userEmail, reset, totalAPIRequestsState, totalEgressState }) => {
     const [selectedCountryInput, updateSelectedCountryInput] = useState('NZ');
     const [selectedDualInput, updateSelectedDualInput] = useState('Dual');
 
-    console.log(`calc - total api ${totalAPIRequests}`);
     const handleCalculateClick = (e) => {
         startResults(e)
         window.location.hash="results";
@@ -25,8 +25,11 @@ const HomepageCalculator = ({ transitionIn, startResults, totalDataTB, totalAPIR
     }
 
     const updateTotalAPIRequests = (e) => {
-        console.log(e);
         totalAPIRequests(e);
+    }
+
+    const updateTotalEgress = (e) => {
+        totalInEgress(e);
     }
     
     return (
@@ -34,8 +37,8 @@ const HomepageCalculator = ({ transitionIn, startResults, totalDataTB, totalAPIR
             <div className="gc">
                 <div className="span-4 t-span-12 flex flex-column flex-s-between">
                     <article className="text-block">
-                        <h2 className="exclude-mobile-line">Data</h2>
-                        <p>Put the total terabytes you have in object storage</p>
+                        <h2 className="exclude-mobile-line">Backup Data</h2>
+                        <p>This is the amount of backup data you have in object storage</p>
                     </article>
                     <div className="homepage-calculator-box">
                         <p className="v-large blue semi-bold">{totalDataTB}TB</p>
@@ -44,32 +47,50 @@ const HomepageCalculator = ({ transitionIn, startResults, totalDataTB, totalAPIR
                 <div className="span-4 t-span-12 flex flex-column flex-s-between">
                     <article className="text-block">
                         <h2>API Requests*</h2>
-                        <p>How many API read and writes you carry out each month in support of your operations</p>
+                        <p>How many API reads and writes carried out each month in support of your backup operations</p>
                     </article>
                     <div className="homepage-calculator-box">
-                        <Slider 
+                        {/* <Slider 
                             data={updateTotalAPIRequests}
-                            min={5}
-                            max={100}
+                            min={0}
+                            max={5000}
                             type=" Million"
                             sliderActivated={transitionIn}
-                            start={totalDataTB / 10}
+                            start={totalAPIRequestsState}
+                            stateData={totalAPIRequestsState}
+                            reset={reset}
+                        /> */}
+                        <SliderNew 
+                            min={1}
+                            max={5000}
+                            type={' Million'}
+                            start={totalAPIRequestsState < 1 ? 1 : totalAPIRequestsState}
+                            handleSliderUpdate={e => updateTotalAPIRequests(e)}
                         />
                     </div>
                 </div>
                 <div className="span-4 t-span-12 flex flex-column flex-s-between">
                     <article className="text-block">
                         <h2>Egress*</h2>
-                        <p>How much data you transfer from object storage through the internet per month</p>
+                        <p>How much data transferred from object storage through the internet per month through your backup solution</p>
                     </article>
                     <div className="homepage-calculator-box">
-                        <Slider 
+                        {/* <Slider 
                             data={e => totalInEgress(e)}
-                            min={1}
-                            max={30}
+                            min={0}
+                            max={50}
                             type="TB"
                             sliderActivated={transitionIn}
-                            start={totalDataTB / 10}
+                            start={totalEgressState}
+                            stateData={totalEgressState}
+                            reset={reset}
+                        /> */}
+                        <SliderNew 
+                            min={1}
+                            max={50}
+                            type={"TB"}
+                            start={totalEgressState < 1 ? 1 : totalEgressState}
+                            handleSliderUpdate={e => updateTotalEgress(e)}
                         />
                     </div>
                 </div>
@@ -82,7 +103,7 @@ const HomepageCalculator = ({ transitionIn, startResults, totalDataTB, totalAPIR
                             </label>
                             <label key={`radio-2`}>
                                 <input checked={selectedDualInput === 'Dual'} type="radio" value='Dual' onChange={e => handleSelectedDualInput(e)} />
-                                Dual-site geo-replicated
+                                Dual-site multi-region replicated
                             </label>
                     </div>
                 </div>
@@ -100,7 +121,7 @@ const HomepageCalculator = ({ transitionIn, startResults, totalDataTB, totalAPIR
                     </div>
                 </div>
                 <div className="d-1-9 m-1-13 flex flex-column">
-                    <label htmlFor="emailAddress"><b>Email Address</b></label>
+                    <label htmlFor="emailAddress"><b>Email Address (in case you want a Datacom expert to contact you to discuss object storage in more detail)</b></label>
                     <input type="email" id="emailAddress" onKeyUp={(e) => userEmail(e.target.value)}/>
                 </div>
                 <div className="d-10-13 t-8-13 m-1-13 flex flex-to-right m-flex-to-left flex-to-bottom">

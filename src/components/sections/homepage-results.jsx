@@ -6,17 +6,13 @@ import { useRef  } from 'react';
 const HomepageResults = ({transitionIn, totalDataTB, totalAPIRequests, totalInEgress, singleOrDuo, selectedCountry, datacomStorageCost, userEmail}) => {
     const ref = useRef()
     const isVisible = useOnScreen(ref)
-    
-    if(transitionIn === 'transition-in') {
-        console.log(`results - total api ${totalAPIRequests}`);
-    }
 		// --------------- //
 		// DEFAULT VARIABLES FROM DATACOM
 		// --------------- //
 		var Storage = 100;  // Customer Storage in TB 
         var Country = "NZ"; // Country is either "NZ" or "AU"
         var RepOption = "Dual"; // Replication is either "Single" or "Dual"
-        var APIReqs = Storage * 0.1; // Number of API requests in Millions (default formula is Storage * 10%)
+        var APIReqs = Storage * 7.7 // Number of API requests in Millions (default formula is Storage * 10%)
         var Egress = Storage * 0.1; // Egress to Internet in TB (default formula is Storage * 10%)
         var FXAUD = 1.3473511; // Exchange Rate as of 16 July 2021
         var FXNZD = 1.4325155; // Exchange Rate as of 16 July 2021
@@ -53,8 +49,8 @@ const HomepageResults = ({transitionIn, totalDataTB, totalAPIRequests, totalInEg
         }
         
         //API Costs
-        var Puts = APIReqs * 0.2 // 20% of API requests are Puts
-        var Gets = APIReqs * 0.8 // 80% of API requests are Gets
+        var Puts = APIReqs * 0.09 // 20% of API requests are Puts
+        var Gets = APIReqs * 0.91 // 80% of API requests are Gets
         
         AWSAPICost = (Puts * 1000 * 0.0055) + (Gets * 1000 * 0.00044);
         
@@ -149,7 +145,7 @@ const billShock = (AWSAPICost + AWSEgressCost) / AWSTotalCost * 100;
                 :null}
             </div>
             <div className="d-4-10 t-2-12 offset-top-medium">
-                <h3 className="large bold">Make bill-shock a thing of the past</h3>
+                <h3 className="large bold">Make backup bill-shock a thing of the past</h3>
             </div>
             <div className="d-5-10 t-3-12 offset-bottom-medium">
                 <p className="large-body">With low per-gig pricing, no API charges and a generous 1 TB of free egress to internet per month, Datacom’s object storage is designed to leave you with no surprises at the end of the month.</p>            
@@ -182,24 +178,24 @@ const billShock = (AWSAPICost + AWSEgressCost) / AWSTotalCost * 100;
                 />
                 
                 {singleOrDuo === 'Dual' && selectedCountry === 'AU' ?
-                    <div className="warning-block span-4 t-span-12 flex flex-r flex-middle data-sovereignty-warning" style={{ backgroundColor: "#B10044" }}>
+                    <div className="warning-block d-7-13 t-span-12 flex flex-r flex-middle data-sovereignty-warning" style={{ backgroundColor: "#B10044" }}>
                         <img src="https://seven.co.nz/media/site/3054248027-1626921512/exclamation-triangle-light.svg" alt="Exclaimation mark" />
                         <img src="https://seven.co.nz/media/site/1228275226-1626921512/path-18.svg" alt="" />
                         <div className="warning-block-description">
-                            <p>Your primary site data remains in country (Sydney), but your secondary site data will be stored overseas (eg Singapore or Hong Kong)</p>
+                            <p>Your primary backup data remains in country (Sydney) but your regionally replicated data will be stored overseas.</p>
                         </div>
                     </div>
                 : selectedCountry === 'NZ' ?
-                    <div className="warning-block span-4 t-span-12 flex flex-r flex-middle data-sovereignty-warning" style={{ backgroundColor: "#B10044" }}>
+                    <div className="warning-block d-7-13 t-span-12 flex flex-r flex-middle data-sovereignty-warning" style={{ backgroundColor: "#B10044" }}>
                         <img src="https://seven.co.nz/media/site/3054248027-1626921512/exclamation-triangle-light.svg" alt="Exclaimation mark" />
                         <img src="https://seven.co.nz/media/site/1228275226-1626921512/path-18.svg" alt="" />
                         <div className="warning-block-description">
-                            <p>Your data will be stored overseas</p>
+                            <p>Your backup data will be stored overseas</p>
                         </div>
                     </div>
                 :null}
 
-                <div className="warning-block span-8 t-span-12 flex flex-r flex-middle" style={{ backgroundColor: "#E60060" }}>
+                <div className="warning-block d-7-13 t-span-12 flex flex-r flex-middle" style={{ backgroundColor: "#E60060" }}>
                 <img src="https://seven.co.nz/media/site/3054248027-1626921512/exclamation-triangle-light.svg" alt="Exclaimation mark" />
                 <h3 className="large bold" style={{ marginRight: "20px"}}>{billShock.toFixed(0)}%</h3>
                     <div className="warning-block-description">
@@ -212,11 +208,11 @@ const billShock = (AWSAPICost + AWSEgressCost) / AWSTotalCost * 100;
                 </div>
                 <div className="more-info-tile span-4 t-span-12 flex flex-center flex-middle flex-column text-center">
                     <img src="https://seven.co.nz/media/site/3109965777-1626921513/server-light.svg" alt="" />
-                    <p className="large-body">It’s all locally stored, which means lower latency and faster for you.</p>
+                    <p className="large-body">It’s all locally stored, which not only means low latency and faster performance but also ensures data sovereignty compliance.</p>
                 </div>
                 <div className="more-info-tile span-4 t-span-12 flex flex-center flex-middle flex-column text-center">
                     <img src="https://seven.co.nz/media/site/45446754-1626921513/tachometer-alt-fastest.svg" alt="" />
-                    <p className="large-body">Save time because our API employs the S3 protocol, reducing time spent on backups.</p>
+                    <p className="large-body">Migrating to Datacom’s object storage is simple because our service employs the industry standard S3 protocol.</p>
                 </div>
                 <div className="more-info-tile span-4 t-span-12 flex flex-center flex-middle flex-column text-center">
                     <img src="https://seven.co.nz/media/site/1769772506-1626921513/user-headset-light.svg" alt="" />
@@ -230,13 +226,19 @@ const billShock = (AWSAPICost + AWSEgressCost) / AWSTotalCost * 100;
                     <p className="x-large-body"><a className="bold white blue-underline" href="https://datacom.com/nz/en/about-us/partners/dell-technologies/object-storage">Contact us</a> to find out more</p>
                 </div>
                 <div className="offset-bottom-large d-1-13">
-                <ol>
-                    <li>Alternate object storage provider pricing sourced from publicly published pricing and is accurate as of 16/07/2021</li>
-                    <li>Exchange rates sourced from <a href="www.xe.com">www.xe.com</a> and are accurate as of 16/07/2021</li>
-                    <li>API Request costs assume 20% of requests are PUTs, and 80% of requests are GETs</li>
-                    <li>The costs displayed are for comparison only, final costs will be determined after the completion of a detailed analysis of your particular circumstances</li>
-                    <li>Comparison product is an established public cloud provider and in accordance with an online calculator of fees</li>
-                </ol>
+                <b>Notes</b>
+                <p></p>
+                <ul>
+                <li>Datacom’s object storage is compared to a primary (sometimes referred to as “Hot” or “Standard” tier) object storage service</li>
+                <li>The costs displayed are for comparison only and based on a backup scenario</li>
+                <li>Final costs will be determined after the completion of a detailed analysis of your particular circumstances</li>
+                <li>Alternate object storage provider costs sourced from publicly published pricing and are accurate as of 16/07/2021</li>
+                <li>Exchange rates sourced from <a href="www.xe.com">www.xe.com</a> and are accurate as of 16/07/2021</li>
+                <li>Initial values are based on a backup scenario where the backup solution is communicating to the service via APIs, validating writes, and checking existing data for changes.</li>   
+                <li>API Request costs assume 9% of requests are PUTs, and 91% of requests are GETs</li>
+                <li>Comparison product is an established public cloud provider and in accordance with an online calculator of fees</li>
+
+                </ul>
             </div>
         </div>
     </section>

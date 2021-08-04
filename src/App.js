@@ -20,12 +20,24 @@ function App() {
   const [calculatorStart, setCalculatorStart] = useState(false)
   const [showResults, setShowResults] = useState(false)
   const [buttonClicked, setButtonClicked] = useState(false)
+  const [resetApp, setResetApp] = useState(false)
   
   const handleDataInputStart = () => {
+    // Everytime button is clicked - reset app variables
+    console.log('resetstate');
+    setCalculatorStart(false)
+    setShowResults(false)
     setDataInputStart(true)
+    setTotalDataTB(10)
+    setTotalAPIRequests(77)
+    setTotalInEgress(1)
+    setSingleOrDuo('Dual')
+    setSelectedCountry('NZ')
+    setUserEmail('')
   }
   const handleCalculatorStart = () => {
     setCalculatorStart(true)
+
   }
   const handleResultsStart = () => {
     setShowResults(true)
@@ -44,14 +56,14 @@ function App() {
       console.log('button already been clicked.. dont send email');
     }
   }
-  console.log('Site by https://barber.codes')
+  // console.log('Site by https://barber.codes')
 
   // ----------------------------- *
   // CALCULATOR STATE
   // ----------------------------- *
-  const [totalDataTB, setTotalDataTB] = useState(0)
-  const [totalAPIRequests, setTotalAPIRequests] = useState(0)
-  const [totalInEgress, setTotalInEgress] = useState(0)
+  const [totalDataTB, setTotalDataTB] = useState(10)
+  const [totalAPIRequests, setTotalAPIRequests] = useState(77)
+  const [totalInEgress, setTotalInEgress] = useState(1)
   const [singleOrDuo, setSingleOrDuo] = useState('Dual')
   const [selectedCountry, setSelectedCountry] = useState('NZ')
   const [userEmail, setUserEmail] = useState('')
@@ -59,7 +71,14 @@ function App() {
 
   const handleTotalDataTB = (data) => {
     setTotalDataTB(data);
-    setTotalAPIRequests(parseInt(data) * 10)
+    setTotalAPIRequests((data * 7.7).toFixed(0))
+    setTotalInEgress((data / 20).toFixed(0))
+  }
+
+  const handleResetApp = () => {
+    setTotalDataTB(10);
+    setTotalAPIRequests(77)
+    setTotalInEgress(1)
   }
 
   const handleTotalAPIRequests = (data) => {
@@ -91,7 +110,9 @@ function App() {
         transitionIn={dataInputStart ? 'transition-in' : 'transition-out '}
         transitionOut={calculatorStart ? 'transition-out' : ''}
         totalDataTB={handleTotalDataTB}
+        totalDataState={totalDataTB}
         startCalculator={handleCalculatorStart}
+        reset={handleResetApp}
       />
       <HomepageCalculator 
         transitionIn={calculatorStart ? 'transition-in' : 'transition-out '}
@@ -102,6 +123,9 @@ function App() {
         singleOrDuo={handleSingleOrDuo}
         selectedCountry={handleSelectedCountry}
         userEmail={handleUserEmail}
+        reset={resetApp}
+        totalAPIRequestsState={totalAPIRequests}
+        totalEgressState={totalInEgress}
       />
       <HomepageResults 
         transitionIn={showResults ? 'transition-in' : 'transition-out '}

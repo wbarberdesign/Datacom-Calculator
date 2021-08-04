@@ -11,8 +11,8 @@ const HomepageIntro = ({ startDataInput }) => {
                 <div className="d-1-7 t-1-13">
                     <h1>Now you can pick all three.</h1>
                     <article className="text-block" style={{ maxWidth: '350px' }}>
-                        <p><b>You and your data are much better off with Datacom’s object storage.</b></p>
-                        <p>Run your numbers through our calculator to see how the best cost solution is fully compromise-free.</p>
+                        <p><b>You and your backup data are much better off with Datacom’s object storage</b></p>
+                        <p>Run your numbers through our calculator to see how the best cost solution for backup object storage is fully compromise-free.</p>
                     </article>
                     <div onClick={initializeApp}>
                         <Button 

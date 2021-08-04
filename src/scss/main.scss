@@ -282,6 +282,24 @@ section.homepage-data-input {
     margin-bottom: $offsetLarge;
     border-radius: 1rem;
     padding: 6rem;
+    position: relative;
+    .input-container {
+        width: 50%;
+        margin-bottom: 0;
+        .styled-slider {
+            margin-bottom: 0;
+            width: 100%;
+        }
+        @include mobileOnly {
+            width: 100%;
+        }
+    }
+    .next-button {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        margin: 6rem;
+    }
 }
 // --------------------------------------------- *
 // #PRODUCT START

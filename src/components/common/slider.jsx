@@ -1,35 +1,8 @@
 import React, {useState, useEffect} from 'react'
 
-const Slider = ({ data, min, max, type, sliderActivated, start }) => {
+const Slider = ({ stateData, data, min, max, type, sliderActivated, start, textColor }) => {
     const slider = React.createRef();
-    const [sliderValue, setSliderValue] = useState(0)
-    const [sliderChanged, setSliderChanged] = useState(false)
-
-    useEffect(() => {
-        if(start > 5 && start < 1000 && sliderActivated === 'transition-in' && sliderChanged === false && type === ' Million') {
-            setSliderValue(start.toFixed(0))
-            setSliderChanged(true)
-        } else if(start <= 5 && sliderActivated === 'transition-in' && sliderChanged === false && type === ' Million') {
-            setSliderValue(5)
-            setSliderChanged(true)
-        } else if(start >= 1000 && sliderActivated === 'transition-in' && sliderChanged === false && type === ' Million') {
-            setSliderValue(100)
-            setSliderChanged(true)
-        } else if(start >= 30 && sliderActivated === 'transition-in' && sliderChanged === false && type === 'TB') {
-            setSliderValue(30)
-            setSliderChanged(true)
-        } else if(start < 30 && sliderActivated === 'transition-in' && sliderChanged === false && type === 'TB') {
-            if(start < 1.7) {
-                setSliderValue(1)
-                setSliderChanged(true)
-            } else {
-                setSliderValue(start.toFixed(0))
-                setSliderChanged(true)
-            }
-        }
-    });
-
-    data(sliderValue);
+    const [sliderValue, setSliderValue] = useState(start)
 
     const handleSetSliderValue= (slider) => {
         setSliderValue(slider.target.value)
@@ -42,8 +15,9 @@ const Slider = ({ data, min, max, type, sliderActivated, start }) => {
     }
     
     return (
-        <div className="slider-container">
-            <div><p class="large semi-bold" style={{ marginBottom: 0 }}>{sliderValue}{type}</p></div>
+        <div key={`${type}-${stateData}`} className={`slider-container ${textColor}`}>
+            <p>{start}</p>
+            <div><p class="large semi-bold" style={{ marginBottom: 0 }}>{type === ' Million' && sliderValue >= 1000 ? (sliderValue / 1000).toFixed(1) : sliderValue}{type === ' Million' && sliderValue >= 1000 ? 'Billion' : type}</p></div>
             <input type="range" id="volume" className="styled-slider slider-progress" style={{ '--min': min, '--max': max, '--value': sliderValue  }} value={sliderValue} name="volume" min={min} max={max} onChange={e => handleSetSliderValue(e)} ref={slider}/>
         </div>
     )
