@@ -20,7 +20,7 @@ function App() {
   const [calculatorStart, setCalculatorStart] = useState(false)
   const [showResults, setShowResults] = useState(false)
   const [buttonClicked, setButtonClicked] = useState(false)
-  const [resetApp, setResetApp] = useState(false)
+  const [allowAppScroll, setAllowAppScroll] = useState(false)
   
   const handleDataInputStart = () => {
     // Everytime button is clicked - reset app variables
@@ -34,10 +34,10 @@ function App() {
     setSingleOrDuo('Dual')
     setSelectedCountry('NZ')
     setUserEmail('')
+    setAllowAppScroll(true)
   }
   const handleCalculatorStart = () => {
     setCalculatorStart(true)
-
   }
   const handleResultsStart = () => {
     setShowResults(true)
@@ -75,12 +75,6 @@ function App() {
     setTotalInEgress((data / 20).toFixed(0))
   }
 
-  const handleResetApp = () => {
-    setTotalDataTB(10);
-    setTotalAPIRequests(77)
-    setTotalInEgress(1)
-  }
-
   const handleTotalAPIRequests = (data) => {
     setTotalAPIRequests(data)
   }
@@ -102,7 +96,7 @@ function App() {
   }
 
   return (
-    <main className="App">
+    <main className="App" data-allow-app-scroll={allowAppScroll}>
       <HomepageIntro 
         startDataInput={handleDataInputStart}
       />
@@ -112,7 +106,6 @@ function App() {
         totalDataTB={handleTotalDataTB}
         totalDataState={totalDataTB}
         startCalculator={handleCalculatorStart}
-        reset={handleResetApp}
       />
       <HomepageCalculator 
         transitionIn={calculatorStart ? 'transition-in' : 'transition-out '}
@@ -123,7 +116,6 @@ function App() {
         singleOrDuo={handleSingleOrDuo}
         selectedCountry={handleSelectedCountry}
         userEmail={handleUserEmail}
-        reset={resetApp}
         totalAPIRequestsState={totalAPIRequests}
         totalEgressState={totalInEgress}
       />

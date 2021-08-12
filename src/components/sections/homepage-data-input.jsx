@@ -1,9 +1,8 @@
 import Button from '../common/button'
-import NumberInput from '../common/NumberInput'
-import Slider from '../common/slider'
+// import NumberInput from '../common/NumberInput'
 import SliderNew from '../common/slider-new'
 
-const HomepageCalculator = ({ totalDataState, transitionIn, transitionOut, totalDataTB, startCalculator, start, reset }) => {
+const HomepageCalculator = ({ totalDataState, transitionIn, transitionOut, totalDataTB, startCalculator }) => {
     const handleButtonClick = (e) => {
         startCalculator(e)
         window.location.hash = "calculator"
@@ -19,16 +18,6 @@ const HomepageCalculator = ({ totalDataState, transitionIn, transitionOut, total
                         {/* <NumberInput 
                             data={e => totalDataTB(e)}
                         /> */}
-                        {/* <Slider 
-                            data={e => totalDataTB(e)}
-                            min={10}
-                            max={1000}
-                            type="TB"
-                            sliderActivated={transitionIn}
-                            start={10}
-                            textColor="blue"
-                            key={reset}
-                        /> */}
                         <SliderNew 
                             min={10}
                             max={1000}
@@ -37,7 +26,6 @@ const HomepageCalculator = ({ totalDataState, transitionIn, transitionOut, total
                             type="TB"
                             handleSliderUpdate={e => totalDataTB(e)}
                         />
-                        {/* <div className="fixed-label large semi-bold blue">TB</div> */}
                         </div>
                     </article>
                 </div>

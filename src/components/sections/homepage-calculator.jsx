@@ -1,11 +1,8 @@
 import Button from '../common/button'
-import Slider from '../common/slider'
 import SliderNew from '../common/slider-new'
 import { useState } from 'react'
-import NumberInput from '../common/NumberInput'
-import RadioGroup from '../common/RadioGroup'
 
-const HomepageCalculator = ({ transitionIn, startResults, totalDataTB, totalAPIRequests, totalInEgress, singleOrDuo, selectedCountry, userEmail, reset, totalAPIRequestsState, totalEgressState }) => {
+const HomepageCalculator = ({ transitionIn, startResults, totalDataTB, totalAPIRequests, totalInEgress, singleOrDuo, selectedCountry, userEmail, totalAPIRequestsState, totalEgressState }) => {
     const [selectedCountryInput, updateSelectedCountryInput] = useState('NZ');
     const [selectedDualInput, updateSelectedDualInput] = useState('Dual');
 
@@ -50,16 +47,6 @@ const HomepageCalculator = ({ transitionIn, startResults, totalDataTB, totalAPIR
                         <p>How many API reads and writes carried out each month in support of your backup operations</p>
                     </article>
                     <div className="homepage-calculator-box">
-                        {/* <Slider 
-                            data={updateTotalAPIRequests}
-                            min={0}
-                            max={5000}
-                            type=" Million"
-                            sliderActivated={transitionIn}
-                            start={totalAPIRequestsState}
-                            stateData={totalAPIRequestsState}
-                            reset={reset}
-                        /> */}
                         <SliderNew 
                             min={1}
                             max={5000}
@@ -75,16 +62,6 @@ const HomepageCalculator = ({ transitionIn, startResults, totalDataTB, totalAPIR
                         <p>How much data transferred from object storage through the internet per month through your backup solution</p>
                     </article>
                     <div className="homepage-calculator-box">
-                        {/* <Slider 
-                            data={e => totalInEgress(e)}
-                            min={0}
-                            max={50}
-                            type="TB"
-                            sliderActivated={transitionIn}
-                            start={totalEgressState}
-                            stateData={totalEgressState}
-                            reset={reset}
-                        /> */}
                         <SliderNew 
                             min={1}
                             max={50}

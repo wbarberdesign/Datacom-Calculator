@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 
 const SliderNew = ({start, handleSliderUpdate, min, max, type, textColor}) => {
     const slider = React.createRef();

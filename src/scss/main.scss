@@ -200,6 +200,10 @@ img {
 }
 
 main {
+    &[data-allow-app-scroll="false"] {
+        overflow: hidden;
+        height: 100vh;
+    }
     section {
         height: 100%;
         overflow: hidden;
@@ -299,6 +303,10 @@ section.homepage-data-input {
         bottom: 0;
         right: 0;
         margin: 6rem;
+        @include mobileOnly {
+            position: relative;
+            margin: 0;
+        }
     }
 }
 // --------------------------------------------- *

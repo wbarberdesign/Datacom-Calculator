@@ -223,7 +223,7 @@ const billShock = (AWSAPICost + AWSEgressCost) / AWSTotalCost * 100;
                     <h3 className="large bold">It's the best cost. It's good. It's fast.</h3>
                 </div>
                 <div className="d-1-6 t-span-12 offset-bottom-large">
-                    <p className="x-large-body"><a className="bold white blue-underline" href="https://datacom.com/nz/en/about-us/partners/dell-technologies/object-storage">Contact us</a> to find out more</p>
+                    <p className="x-large-body"><a className="bold white blue-underline" rel="noreferrer" target="_blank" href="https://datacom.com/nz/en/about-us/partners/dell-technologies/object-storage/contact-us">Contact us</a> to find out more</p>
                 </div>
                 <div className="offset-bottom-large d-1-13">
                 <b>Notes</b>
@@ -233,7 +233,7 @@ const billShock = (AWSAPICost + AWSEgressCost) / AWSTotalCost * 100;
                 <li>The costs displayed are for comparison only and based on a backup scenario</li>
                 <li>Final costs will be determined after the completion of a detailed analysis of your particular circumstances</li>
                 <li>Alternate object storage provider costs sourced from publicly published pricing and are accurate as of 16/07/2021</li>
-                <li>Exchange rates sourced from <a href="www.xe.com">www.xe.com</a> and are accurate as of 16/07/2021</li>
+                <li>Exchange rates sourced from <a href="www.xe.com" rel="noreferrer" target="_blank">www.xe.com</a> and are accurate as of 16/07/2021</li>
                 <li>Initial values are based on a backup scenario where the backup solution is communicating to the service via APIs, validating writes, and checking existing data for changes.</li>   
                 <li>API Request costs assume 9% of requests are PUTs, and 91% of requests are GETs</li>
                 <li>Comparison product is an established public cloud provider and in accordance with an online calculator of fees</li>
